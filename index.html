@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Islamic Center Of Brushy Creek EAC Events</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        /*
+
+Tech Stack:
+- HTML5: Structure for page layout and content flow
+- CSS3: Styling via flexbox layouts, custom colors, fonts, shadows, and spacing
+- JavaScript (Vanilla): Local time clock function and randomized Qur'anic ayah quote generator
+
+Purpose:
+Designed for passive screen display at the Islamic Center of Brushy Creek.
+Highlights upcoming events, displays local time for Austin, Texas, and includes subtle Islamic educational elements
+such as trivia and rotating Qur'anic quotes.
+
+Design Themes:
+- Maroon-cream color palette
+- Soft rounded corners, card layout, shadow depth
+- Clean, minimal styling with subtle interactivity
+
+Author:
+Faaezah Ahmed Shaik — July 23, 2025
+Code adapted in part from VRHS MSA website themes, with permission.
+Ayah content contributions by Maha Hassan.
+
+Note:
+This display is optimized for large screens. No scrolling or user interaction required.
+All content loads passively and remains centered for maximum legibility.
+*/
+
+
+/*
+CSS STYLING
+Description: Defines overall layout, font, and base colors. Applies flex orientation to stack content
+vertically. Sets up the cream background and maroon text theme.
+*/
+
+            body {
+              margin: 0;
+              font-family: 'Segoe UI', sans-serif;
+              background: #FDF8F4;
+              color: #7E354D;
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+            }
+
+            main {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+            }
+
+            header {
+              background: #7E354D;
+              font-size: 1.4rem;
+              padding: 1.5rem 1.7rem;
+              text-align: center;
+              color: white;
+              border-bottom-left-radius: 40px;
+              border-bottom-right-radius: 40px;
+            }
+
+            .member-card {
+              backdrop-filter: blur(14px);
+              background: rgba(253, 248, 244, 0.2);
+              border-radius: 1rem;
+              padding: 2.4rem 2rem;
+              box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+              border: 1px solid rgba(253,248,244,0.3);
+              transition: transform 0.3s ease;
+              color: #7E354D;
+              min-height: 220px;
+              max-width: 900px;
+              margin-top: 1rem;
+            }
+
+            .member-card:hover {
+              transform: translateY(-6px);
+            }
+
+            .member-card img {
+              width: 90px;
+              height: 90px;
+              object-fit: cover;
+              border-radius: 50%;
+              border: 3px solid #FDF8F4;
+              margin-bottom: 1rem;
+            }
+
+            .member-card h3 {
+              margin: 0.3rem 0;
+              font-size: 1.2rem;
+            }
+
+            .member-card .role {
+              color: #7E354D;
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              font-size: 0.95rem;
+            }
+
+            .member-card p {
+              font-size: 0.95rem;
+              color: #7E354D;
+              line-height: 1.5;
+            }
+
+            .narrow-card {
+              width: 300px;
+            }
+
+            .maroon-box {
+              background-color: #7E354D;
+              color: #FDF8F4;
+              padding: 1.5rem;
+              border-radius: 1rem;
+              max-width: 300px;
+              flex-shrink: 0;
+              box-shadow: 0 6px 16px rgba(0, 0, 0, 0.0);
+            }
+
+            .maroon-button {
+              margin-top: 1rem;
+              background-color: #FDF8F4;
+              color: #7E354D;
+              border: none;
+              padding: 0.6rem 1.2rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+            }
+
+            .maroon-button:hover {
+              background-color: #e6ddd6;
+            }
+
+            .horizontal-events {
+              display: flex;
+              justify-content: center;
+              gap: 1.5rem;
+              margin: 1rem 0;
+              flex-wrap: wrap;
+            }
+
+            .map-container {
+              display: flex;
+              justify-content: center;
+            }
+
+            .maroon-box2 {
+              max-width: 995px;
+              width: 90%;
+              min-height: 270px;
+              background-color: #7E354D;
+              color: #FDF8F4;
+              padding: 1rem;
+              border-radius: 1rem;
+              text-align: center;
+              font-size: 1rem;
+            }
+
+            .layout-row {
+              display: flex;
+              align-items: flex-start;
+              gap: 2rem;
+              margin: 2rem;
+            }
+
+            .event-container {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              gap: 2rem;
+              margin-top: 1rem;
+            }
+
+            .did-you-know-box {
+              background-color: #F3E6D1;
+              color: #7E354D;
+              border-radius: 1rem;
+              padding: 1.8rem 1.6rem;
+              font-size: 1rem;
+              line-height: 1.7;
+              font-family: 'Quicksand', sans-serif;
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+              max-width: 300px;
+              flex-shrink: 0;
+              text-align: left;
+            }
+
+            .did-you-know-box h4 {
+              margin-bottom: 1rem;
+              font-size: 1.2rem;
+              font-weight: bold;
+              text-align: center;
+            }
+
+            .event-row {
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+              gap: 2rem;
+              margin-top: 2rem;
+              flex-wrap: wrap;
+            }
+    </style>
+
+</head>
+
+<body>
+<!-- Top Bar -->
+<div style="display: flex; justify-content: space-between; align-items: center; background-color: #FDF8F4; padding: 1rem 2rem; border-bottom: 1px solid #e2d6ce;">
+    <!-- Clock -->
+    <div style="font-size: 1.5rem; color: #7E354D;">
+        Austin, Texas — <span id="simple-clock"></span>
+    </div>
+
+    <script>
+        /*
+    Clock Function
+    Description: Logwork clock widget was unreliable so replaced with some simple js to help add a clock.
+    More reliable and better programming method --> no faulty iframes or struggles in embedding
+    */
+        function updateClock() {
+          const now = new Date();
+          document.getElementById('simple-clock').textContent =
+            now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+
+    <!-- Hadith Quote -->
+    <div style="font-size: 1.2rem; color: #7E354D; text-align: center; max-width: 400px;">
+        “Whenever people gather in a mosque to recite the Book of Allah, tranquility descends upon them.” <br>
+        <em>— Sahih Muslim</em>
+    </div>
+
+    <!-- Logo Image adopted from the Apple Store Icon of the ICBC Masjid App -->
+    <div style="width: 120px; height: auto;">
+        <img src="icbc_logo.png" alt="ICBC Logo" style="width: 100%; height: auto;" />
+    </div>
+</div>
+
+<header>Islamic Center of Brushy Creek EAC Events</header>
+<h2 style="text-align: center; margin-top: 1rem;">ICBC Upcoming Events</h2>
+
+<main>
+
+    <!-- Member Cards Row (adopted from the VRHS Website for the MSA -->
+    <!-- rather than showing people's names it shows events - considering to plug into database for libve auto updates -->
+    <div class="horizontal-events">
+        <div class="member-card narrow-card">
+            <img src="images/event1" alt="Event 1">
+            <h3>Scratch class</h3>
+            <p class="role">Spots available: xx</p>
+            <p>Lorem ipsum dolor sit amet (description)</p>
+        </div>
+
+        <div class="member-card narrow-card">
+            <img src="images/event2" alt="Event 2">
+            <h3>CAD Workshop</h3>
+            <p class="role">Spots available: xx</p>
+            <p>Lorem ipsum dolor sit amet (description)</p>
+        </div>
+
+        <div class="member-card narrow-card">
+            <img src="images/event3" alt="Event 3">
+            <h3>Python Workshop</h3>
+            <p class="role">Spots available: xx</p>
+            <p>Lorem ipsum dolor sit amet (description)</p>
+        </div>
+    </div>
+
+    <!-- Map Section (Main Focus) -->
+    <div class="layout-row">
+        <!-- Did You Know Box on the left -->
+        <div class="did-you-know-box" style="margin-top: -1.0rem; margin-left: 3.3rem;">
+            <h4>Did You Know?</h4>
+            <p>
+                The crescent 🌙 commonly seen on mosques isn't a religious symbol from the Qur'an —
+                it was adopted later through Ottoman tradition and design.
+            </p>
+        </div>
+
+        <!-- Centered Map Box - Map box alignment is placeholder for future 3d map -->
+        <div class="maroon-box2" style="flex: 1;">
+            <h3>ICBC Virtual Map</h3>
+        </div>
+    </div>
+
+</main>
+
+
+<!-- Ayah Quote Bubble - realistically changes using ayahs provided from Maha Hassan -->
+<!-- some more css for making the ayah bubble complement the overall design -->
+<div id="quote-bubble"
+     style="position: fixed;
+              bottom: 1.2rem;
+              right: 1.2rem;
+              background: #F3E6D1;
+              color: #7E354D;
+              padding: 1.6rem 1.8rem;
+              border-radius: 18px;
+              box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+              max-width: 380px;
+              font-size: 1.1rem;
+              font-family: 'Quicksand', sans-serif;
+              z-index: 99;
+              line-height: 1.6;
+              pointer-events: none;">
+</div>
+
+<!-- Adopted from VRHS MSA Website -->
+<script>
+    const quotes = [
+      "“Sufficient for us is Allah, and He is the best disposer of affairs.” — Surah Aal-Imran 3:173",
+      "“And I did not create the jinn and mankind except to worship Me.” — Surah Ad-Dhariyat 51:56",
+      "“Indeed, with hardship comes ease.” — Surah Ash-Sharh 94:6",
+      "“Allah does not burden a soul beyond that it can bear.” — Surah Al-Baqarah 2:286",
+      "“Our Lord, perfect for us our light and forgive us...” — Surah At-Tahrim 66:8",
+      "“Indeed, Allah is with those who are patient.” — Surah Al-Anfal 8:46",
+      "“And say, ‘Truth has come and falsehood has vanished.’ Surely, falsehood is ever bound to vanish.” — Surah Al-Isra 17:81"
+    ];
+    document.getElementById("quote-bubble").innerText =
+      quotes[Math.floor(Math.random() * quotes.length)];
+</script>
+</body>
+</html>
